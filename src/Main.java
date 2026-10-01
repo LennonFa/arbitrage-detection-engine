@@ -18,6 +18,11 @@ void main() {
 
     System.out.println("Ended with: " + finalUSD + " USD");
 
-    System.out.println("USD: " + capitalUSD + "    " + "EUR: " + capitalEUR + "    " + "GBP:" + capitalGBP);
+    if (finalUSD > capitalUSD) {
+        System.out.println("Percentage: " + ((finalUSD/capitalUSD-1)*100) + "%");
+        System.out.println("Profit: " + (finalUSD-capitalUSD));
+    } else {
+        System.out.println("no arbitrage opportunity");
+    }
 }
 
