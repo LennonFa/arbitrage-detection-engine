@@ -1,14 +1,24 @@
 void main() {
+
     double USD2EUR = 0.92;
     double EUR2GBP = 0.86;
     double GBP2USD = 1.28;
-
 
 
     double capitalUSD = 100;
     double capitalEUR = capitalUSD * USD2EUR;
     double capitalGBP = capitalEUR * EUR2GBP;
     double finalUSD =  capitalGBP * GBP2USD;
+
+    double exchangeRateProdukt = USD2EUR * EUR2GBP * GBP2USD;
+
+    if (exchangeRateProdukt > 1) {
+        System.out.println("Arbitrage detected! " + exchangeRateProdukt);
+    } else if (exchangeRateProdukt == 1) {
+        System.out.println("No arbitrage detected!" + exchangeRateProdukt);
+    } else {
+        System.out.println("No arbitrage dtected!" + exchangeRateProdukt);
+    }
 
     System.out.println("started with: " + capitalUSD + " USD");
 
