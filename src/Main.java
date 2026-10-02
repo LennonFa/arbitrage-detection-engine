@@ -1,38 +1,29 @@
 void main() {
 
-    double USD2EUR = 0.92;
-    double EUR2GBP = 0.86;
-    double GBP2USD = 1.28;
+    double[] rates = {0.92, 0.86, 1.28};
 
+    double exchangeRateProduct = arbitrage(rates);
 
-    double capitalUSD = 100;
-    double capitalEUR = capitalUSD * USD2EUR;
-    double capitalGBP = capitalEUR * EUR2GBP;
-    double finalUSD =  capitalGBP * GBP2USD;
-
-    double exchangeRateProdukt = USD2EUR * EUR2GBP * GBP2USD;
-
-    if (exchangeRateProdukt > 1) {
-        System.out.println("Arbitrage detected! " + exchangeRateProdukt);
-    } else if (exchangeRateProdukt == 1) {
-        System.out.println("No arbitrage detected!" + exchangeRateProdukt);
+    if (exchangeRateProduct > 1) {
+        System.out.println("Arbitrage detected! " + exchangeRateProduct);
+    } else if (exchangeRateProduct == 1) {
+        System.out.println("No arbitrage detected!" + exchangeRateProduct);
     } else {
-        System.out.println("No arbitrage dtected!" + exchangeRateProdukt);
+        System.out.println("No arbitrage detected!" + exchangeRateProduct);
     }
 
-    System.out.println("started with: " + capitalUSD + " USD");
-
-    System.out.println("Convert USD to EUR: " + capitalEUR + " EUR");
-    System.out.println("Convert EUR to GBP: " + capitalGBP + " GBP");
-    System.out.println("Convert GBP to USD: " + finalUSD + " USD");
-
-    System.out.println("Ended with: " + finalUSD + " USD");
-
-    if (finalUSD > capitalUSD) {
-        System.out.println("Percentage: " + ((finalUSD/capitalUSD-1)*100) + "%");
-        System.out.println("Profit: " + (finalUSD-capitalUSD));
+    if (exchangeRateProduct > 1) {
+        System.out.println("Percentage: " + exchangeRateProduct + "%");
     } else {
         System.out.println("no arbitrage opportunity");
     }
+}
+
+double arbitrage (double[] rates) {
+    double product = 1.0;
+    for (double rate : rates){
+        product *= rate;
+    }
+    return product;
 }
 
