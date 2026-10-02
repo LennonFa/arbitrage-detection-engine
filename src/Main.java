@@ -2,7 +2,7 @@ void main() {
 
     double[] rates = {0.92, 0.86, 1.28};
 
-    double exchangeRateProduct = arbitrage(rates);
+    double exchangeRateProduct = calculateCycleProduct(rates);
 
     if (exchangeRateProduct > 1) {
         System.out.println("Arbitrage detected! " + exchangeRateProduct);
@@ -13,13 +13,13 @@ void main() {
     }
 
     if (exchangeRateProduct > 1) {
-        System.out.println("Percentage: " + exchangeRateProduct + "%");
+        System.out.println("Percentage: " + (exchangeRateProduct-1)*100 + "%");
     } else {
         System.out.println("no arbitrage opportunity");
     }
 }
 
-double arbitrage (double[] rates) {
+double calculateCycleProduct (double[] rates) {
     double product = 1.0;
     for (double rate : rates){
         product *= rate;
