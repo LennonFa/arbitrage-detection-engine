@@ -1,6 +1,10 @@
 void main() {
 
-    double[] rates = {0.92, 0.86, 1.28};
+    double[][] rates = { //1:USD 2:EUR 3:GBP
+            {1,0.92,0.7813},
+            {1.087,1,0.86},
+            {1.28,1.1628,1}
+    };
 
     double exchangeRateProduct = calculateCycleProduct(rates);
 
