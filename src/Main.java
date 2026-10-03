@@ -6,13 +6,21 @@ void main() {
             {1.28,1.1628,1}
     };
     String[] currencies = {"USD", "EUR", "GBP"};
-    int[] cycle01 = {0,1,2,0};
-    double[] cycle = { rates[0][1],rates[1][2],rates[2][0] };
+    int[] cycle = {0,1,2,0};
 
-    double exchangeRateProduct = calculateCycleProduct(rates, cycle01);
+    double exchangeRateProduct = calculateCycleProduct(rates, cycle);
 
     if (exchangeRateProduct > 1) {
         System.out.println("Arbitrage detected! " + exchangeRateProduct);
+        for (int i : cycle){
+            System.out.print(currencies[i]);
+            if (i >= cycle.length-2){
+                System.out.println(" ");
+                break;
+            } else {
+                System.out.print("-->");
+            }
+        }
     } else if (exchangeRateProduct == 1) {
         System.out.println("No arbitrage detected!" + exchangeRateProduct);
     } else {
@@ -26,12 +34,11 @@ void main() {
     }
 }
 
-double calculateCycleProduct (double[][] rates, int[] cycle01) {
+double calculateCycleProduct (double[][] rates, int[] cycle) {
     double product = 1.0;
-    for (int i = 0; i < cycle01.length-1; i++){
-        product *= rates[cycle01[i]][cycle01[i+1]];
+    for (int i = 0; i < cycle.length-1; i++){
+        product *= rates[cycle[i]][cycle[i+1]];
     }
-
     return product;
 }
 
