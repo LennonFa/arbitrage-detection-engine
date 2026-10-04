@@ -1,26 +1,25 @@
 void main() {
 
-    double[][] rates = { //0: USD 1: EUR 2: GBP
-            {1,0.92,0.7813},
-            {1.087,1,0.86},
-            {1.28,1.1628,1}
+    double[][] rates = { //0: USD 1: EUR 2: GBP 3: JPY
+            {1,0.92,0.7813,150},
+            {1.087,1,0.86,163},
+            {1.28,1.1628,1,191},
+            {0.00666666,0.006134969,0.00523560209}
     };
-    String[] currencies = {"USD", "EUR", "GBP"};
+    String[] currencies = {"USD", "EUR", "GBP", "JPY"};
     double bestRateProduct = 0;
     double currentRateProduct;
     int[] bestCycle = {0,1};
 
     for (int i = 0; i < currencies.length; i++){
         for (int j = 0; j < currencies.length; j++){
-            if (i == j){
+            if (i == j || i > j){
                 continue;
             }
             for (int k = 0; k < currencies.length; k++){
-                if (i == k){
+                if (i == k || j == k || i > k){
                     continue;
-                } else if (j == k){
-                    continue;
-                } else {
+                }
                 int[] cycle = {i ,j ,k ,i};
 
                 currentRateProduct = calculateCycleProduct(rates, cycle);
@@ -29,7 +28,11 @@ void main() {
                     bestRateProduct = currentRateProduct;
                     bestCycle = cycle;
                 }
+                for (int f : cycle){
+                    System.out.print(f);
                 }
+                System.out.println(" ");
+
             }
         }
     }
@@ -52,7 +55,7 @@ void main() {
     }
 
     if (bestRateProduct > 1) {
-        System.out.println("Percentage: " + (bestRateProduct - 1)*100 + "%");
+        System.out.println("Percentage: " + (bestRateProduct - 1) * 100 + "%");
     } else {
         System.out.println("no arbitrage opportunity");
     }
