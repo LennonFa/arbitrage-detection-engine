@@ -7,38 +7,11 @@ void main() {
             {0.00666666, 0.006134969, 0.00523560209, 1}
     };
     String[] currencies = {"USD", "EUR", "GBP", "JPY"};
-    double bestRateProduct = 0;
     double currentRateProduct;
     int[] bestCycle = {0,1};
     int checksedCycles = 0;
 
-    for (int i = 0; i < currencies.length; i++){
-        for (int j = 0; j < currencies.length; j++){
-            if (i == j || i > j){
-                continue;
-            }
-            for (int k = 0; k < currencies.length; k++){
-                if (i == k || j == k || i > k){
-                    continue;
-                }
-                int[] cycle = {i ,j ,k ,i};
-
-                currentRateProduct = calculateCycleProduct(rates, cycle);
-                checksedCycles++;
-
-                if (currentRateProduct > bestRateProduct){
-                    bestRateProduct = currentRateProduct;
-                    bestCycle = cycle;
-                }
-                for (int f : cycle){
-                    System.out.print(f + " ");
-                }
-                System.out.println(" ");
-
-            }
-        }
-    }
-
+    double bestRateProduct = calculateCycleProduct(rates, findBestTriangularArbitrage(rates));
 
     if (bestRateProduct > 1) {
         System.out.println("cycles checked: " + checksedCycles);
@@ -76,14 +49,14 @@ int[] findBestTriangularArbitrage(double[][] rates) {
     double currentRateProduct = 1;
     int checkedCycles = 0;
     double bestRateProduct = 0;
-    int[] bestCycle;
+    int[] bestCycle = null;
 
-    for (int i = 0; i < rates[0].length; i++) {
-        for (int j = 0; j < rates[0].length; j++){
+    for (int i = 0; i < rates.length; i++) {
+        for (int j = 0; j < rates.length; j++){
             if (i == j || i > j) {
                 continue;
             }
-            for (int k = 0; k < rates[0].length; k++){
+            for (int k = 0; k < rates.length; k++){
                 if (i == k || j == k || i > k) {
                     continue;
                 }
@@ -97,10 +70,9 @@ int[] findBestTriangularArbitrage(double[][] rates) {
                     bestRateProduct = currentRateProduct;
                     bestCycle = cycle;
                 }
-                return cycle;
             }
         }
-
     }
+    return bestCycle;
 }
 
