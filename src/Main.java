@@ -8,10 +8,11 @@ void main() {
     };
     String[] currencies = {"USD", "EUR", "GBP", "JPY"};
     double currentRateProduct;
-    int[] bestCycle = {0,1};
+    int[] bestCycle = findBestTriangularArbitrage(rates);
+    double bestRateProduct = calculateCycleProduct(rates, bestCycle);
     int checksedCycles = 0;
 
-    double bestRateProduct = calculateCycleProduct(rates, findBestTriangularArbitrage(rates));
+
 
     if (bestRateProduct > 1) {
         System.out.println("cycles checked: " + checksedCycles);
